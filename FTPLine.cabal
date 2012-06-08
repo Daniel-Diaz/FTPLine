@@ -17,7 +17,7 @@ Source-repository head
 
 Executable FTPLine
   Build-depends: base == 4.*
-               , mtl == 2.0.*
+               , mtl == 2.*
                , ftphs
                , directory
                , network
