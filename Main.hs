@@ -18,6 +18,8 @@ import System.Console.ANSI
 import System.IO
 import System.Environment (getArgs)
 import qualified Data.ByteString.Char8 as B
+import Paths_FTPLine (version)
+import Data.Version (showVersion)
  
 ftperror :: String -> FTPLine a
 ftperror = liftIO . fail
@@ -503,7 +505,7 @@ main
        args <- getArgs
        appDir <- ftpLineDir
        createDirectoryIfMissing True appDir
-       putStrLn "*** Welcome to FTPLine 1.4.0.0 ***"
+       putStrLn $ "*** Welcome to FTPLine " ++ showVersion version ++ " ***"
        if null args then
          withColor Cyan $
            do putStr "Type "

@@ -4,8 +4,7 @@ Cabal-Version: >= 1.6
 License: BSD3
 License-file: license
 Author: Daniel Díaz
-Maintainer: Daniel Diaz (danieldiaz `at` dhelta `dot` net)
-Homepage: http://dhelta.net/hprojects/FTPLine
+Maintainer: Daniel Diaz (dhelta `dot` diaz `at` gmail `dot` com)
 Category: Network
 Synopsis: A command-line FTP client.
 Description: A command-line FTP client. Type @help@ for a list of commands.
@@ -27,4 +26,5 @@ Executable FTPLine
                , bytestring
   Extensions: FlexibleInstances
   Main-is: Main.hs
+  Other-modules: Paths_FTPLine
   ghc-options: -O2 -Wall
