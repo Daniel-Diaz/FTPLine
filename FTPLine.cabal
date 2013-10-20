@@ -27,3 +27,4 @@ Executable FTPLine
                , bytestring
   Extensions: FlexibleInstances
   Main-is: Main.hs
+  ghc-options: -O2 -Wall
