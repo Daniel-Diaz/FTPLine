@@ -1,15 +1,6 @@
 
 {-# LANGUAGE FlexibleInstances #-}
 
---
--- Below is the code of the FTPLine application.
--- Sorry for the lack of code notes.
--- If you have any question about the code, I have your answer (I hope).
--- 
--- Daniel Diaz < danieldiaz@dhelta.net >
--- 2011
---
-
 import Data.Maybe
 import qualified Data.Strict.Maybe as Strict
 import Control.Monad.State.Strict
@@ -27,16 +18,6 @@ import System.Console.ANSI
 import System.IO
 import System.Environment (getArgs)
 import qualified Data.ByteString.Char8 as B
-
--- Instance of StateT monad in MonadException class
-
-instance MonadException m => MonadException (StateT s m) where
-    catch f h = StateT $ \s -> catch (runStateT f s)
-                            (\e -> runStateT (h e) s)
-    block = mapStateT block
-    unblock = mapStateT unblock
-
---
 
 ftperror :: String -> FTPLine a
 ftperror = liftIO . fail

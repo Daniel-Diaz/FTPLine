@@ -1,5 +1,5 @@
 Name: FTPLine
-Version: 1.3.0.1
+Version: 1.4.0.0
 Cabal-Version: >= 1.6
 License: BSD3
 License-file: license
@@ -17,11 +17,11 @@ Source-repository head
 
 Executable FTPLine
   Build-depends: base == 4.*
-               , mtl == 2.*
+               , mtl
                , ftphs
                , directory
                , network
-               , haskeline >= 0.6.3.2 && < 0.7
+               , haskeline
                , ansi-terminal
                , strict
                , bytestring
