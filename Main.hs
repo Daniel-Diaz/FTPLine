@@ -13,7 +13,7 @@ import Network.FTP.Client
 import Network.FTP.Client.Parser
 import System.Directory
 import Control.Applicative ((<$>))
-import Data.List (intercalate)
+import Data.List (intercalate,isPrefixOf)
 import System.Console.ANSI
 import System.IO
 import System.Environment (getArgs)
@@ -36,8 +36,17 @@ getInputLine str
 getInputLine_ :: String -> String -> FTPLine ()
 getInputLine_ str com
   = do withColor Yellow $ outputStr str
-       outputStrLn com
+       outputStrLn $ processInteractiveOutput com
  
+processInteractiveOutput :: String -> String
+processInteractiveOutput str
+  | "login" `isPrefixOf` str
+              = let ws = words str
+                in  if length ws == 3
+                       then unwords $ take 2 ws ++ [fmap (\_ -> '*') (ws !! 2)]
+                       else str
+  | otherwise = str
+
 data File = File FilePath !B.ByteString
  
 type SMaybe = Strict.Maybe
