@@ -2,7 +2,9 @@
 {-# LANGUAGE FlexibleInstances #-}
 
 module Main (main) where
+
 import Data.Maybe
+import Data.Char (ord, chr)
 import qualified Data.Strict.Maybe as Strict
 import Control.Monad.State.Strict
 import System.Console.Haskeline hiding (getInputLine)
@@ -17,7 +19,7 @@ import Data.List (intercalate,isPrefixOf)
 import System.Console.ANSI
 import System.IO
 import System.Environment (getArgs)
-import qualified Data.ByteString.Char8 as B
+import qualified Data.ByteString.Lazy as B
 import Paths_FTPLine (version)
 import Data.Version (showVersion)
  
@@ -220,7 +222,7 @@ getfile fp
       <->
       \ c ->
         do (x, r) <- liftIO $ getbinary c fp
-           newFile $ File fp $ B.pack x
+           newFile $ File fp $ B.pack $ fmap (fromIntegral . ord) x
            return r
  
 download :: String -> FTPLine FTPResult
@@ -238,7 +240,7 @@ putfile fp
         do x <- getFile
            if Strict.isNothing x then ftperror "File memory empty." else
              let (File _ cnt) = Strict.fromJust x in
-               liftIO $ putbinary c fp $ B.unpack cnt
+               liftIO $ putbinary c fp $ fmap (chr . fromIntegral) $ B.unpack cnt
  
 upload :: String -> FTPLine FTPResult
 upload fp = withConnection $ \ c -> liftIO $ uploadbinary c fp
