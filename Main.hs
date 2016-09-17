@@ -1,5 +1,5 @@
 
-{-# LANGUAGE FlexibleInstances #-}
+{-# LANGUAGE FlexibleInstances, CPP #-}
 
 module Main (main) where
 
@@ -454,9 +454,11 @@ mkCom args f
  
 instance Arg [Char] where
         parse = return
- 
+
+#if !MIN_VERSION_network(2,6,3)
 instance Read PortNumber where
   readsPrec n str = (\(x,r) -> ((fromIntegral :: Int -> PortNumber) x , r)) <$> readsPrec n str
+#endif
  
 safeTail :: [a] -> [a]
 safeTail [] = []
